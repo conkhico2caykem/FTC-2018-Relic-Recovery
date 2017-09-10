@@ -4,15 +4,18 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Tank Drive", group="RIAW")
+@TeleOp(name="servoTester", group="RIAW")
 //@Disabled
-public class teleop extends LinearOpMode {
+public class servoTester extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareRIAW    robot           = new HardwareRIAW();              // Use a K9'shardware
+    private ElapsedTime     runtime = new ElapsedTime();
     double          armPosition     = robot.ARM_HOME;                   // Servo safe position
     double          clawPosition    = robot.CLAW_HOME;                  // Servo safe position
+    double          gripperPosition = 0;
     final double    CLAW_SPEED      = 0.01 ;                            // sets rate to move servo
     final double    ARM_SPEED       = 0.01 ;                            // sets rate to move servo
 
@@ -35,20 +38,21 @@ public class teleop extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
-            // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-            left = -gamepad1.left_stick_y;
-            right = -gamepad1.right_stick_y;
-            robot.frontLeftDrive.setPower(left);
-            robot.backLeftDrive.setPower(left);
-            robot.frontRightDrive.setPower(right);
-            robot.backRightDrive.setPower(right);
-
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() < 3)
+            {
+                robot.gripper.setPosition(gripperPosition);
+                telemetry.addData("servo value",   "%.2f", gripperPosition);
+                telemetry.addData("runtime", runtime);
+                telemetry.update();
+            }
+            runtime.reset();
+            if (gripperPosition < 3) {
+                gripperPosition += 0.1;
+            }
             // Send telemetry message to signify robot running;
-            //telemetry.addData("arm",   "%.2f", armPosition);
-            //telemetry.addData("claw",  "%.2f", clawPosition);
-            telemetry.addData("left",  "%.2f", left);
-            telemetry.addData("right", "%.2f", right);
+            telemetry.addData("servo value",   "%.2f", gripperPosition);
+            telemetry.addData("runtime", runtime);
             telemetry.update();
 
             // Pause for 40 mS each cycle = update 25 times a second.

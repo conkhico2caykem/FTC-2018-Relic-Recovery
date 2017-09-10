@@ -43,8 +43,8 @@ public class HardwareRIAW
         backLeftDrive   = hwMap.get(DcMotor.class, "bleft_drive");
         frontRightDrive = hwMap.get(DcMotor.class, "fright_drive");
         backRightDrive  = hwMap.get(DcMotor.class, "bright_drive");
-        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
         frontLeftDrive.setPower(0);
@@ -62,9 +62,9 @@ public class HardwareRIAW
 
         // Define and initialize ALL installed servos.
         gripper          = hwMap.get(Servo.class, "gripper");
-        leftIntake       = hwMap.get(Servo.class, "left_intake");
-        rightIntake      = hwMap.get(Servo.class, "right_intake");
-        jewelArm         = hwMap.get(Servo.class, "jewel_arm");
+        //leftIntake       = hwMap.get(Servo.class, "left_intake");
+        //rightIntake      = hwMap.get(Servo.class, "right_intake");
+        //jewelArm         = hwMap.get(Servo.class, "jewel_arm");
 
         //.setPosition(ARM_HOME);
         //claw.setPosition(CLAW_HOME);
