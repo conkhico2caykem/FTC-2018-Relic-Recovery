@@ -47,8 +47,12 @@ public class servoTester extends LinearOpMode {
                 telemetry.update();
             }
             runtime.reset();
-            if (gripperPosition < 3) {
-                gripperPosition += 0.1;
+            if (gripperPosition == 0.4) {
+                gripperPosition = 0.6;
+            }
+            else
+            {
+                gripperPosition = 0.4;
             }
             // Send telemetry message to signify robot running;
             telemetry.addData("servo value",   "%.2f", gripperPosition);
