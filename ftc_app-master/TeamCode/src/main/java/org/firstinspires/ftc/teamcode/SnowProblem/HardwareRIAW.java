@@ -69,6 +69,10 @@ public class HardwareRIAW {
         backLeftDrive = hwMap.get(DcMotor.class, "bleft_drive");
         frontRightDrive = hwMap.get(DcMotor.class, "fright_drive");
         backRightDrive = hwMap.get(DcMotor.class, "bright_drive");
+        //leftIntake = hwMap.get(DcMotor.class, "left_intake");
+        //rightIntake = hwMap.get(DcMotor.class, "right_intake");
+        //lift        = hwMap.get(DcMotor.class, "lift");
+        //relicSlides = hwMap.get(DcMotor.class, "lift");
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -78,6 +82,10 @@ public class HardwareRIAW {
         backLeftDrive.setPower(0);
         frontRightDrive.setPower(0);
         backRightDrive.setPower(0);
+        //leftIntake.setPower(0);
+        //rightIntake.setPower(0);
+        //lift.setPower(0);
+        //relicSlides.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -85,11 +93,15 @@ public class HardwareRIAW {
         backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //leftIntake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //rightIntake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER)
 
         // Define and initialize ALL installed servos.
         gripper = hwMap.get(Servo.class, "gripper");
         //leftIntake       = hwMap.get(Servo.class, "left_intake");
         //rightIntake      = hwMap.get(Servo.class, "right_intake");
+        //wrist            = hwMap.get(Servo.class, "wrist");
+        //hand             = hwMap.get(Servo.class, "hand");
         //jewelArm         = hwMap.get(Servo.class, "jewel_arm");
 
         // State used for updating telemetry
@@ -125,6 +137,11 @@ public class HardwareRIAW {
         backLeftDrive.setPower(-power);
         backRightDrive.setPower(power);
     }
+
+    public void intake(double power){
+
+    }
+
 
     public void gyroTurn(boolean left, double angle, double power) {
         initAngle = angleRead.firstAngle;

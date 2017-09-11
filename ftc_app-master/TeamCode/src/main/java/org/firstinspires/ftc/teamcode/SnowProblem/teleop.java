@@ -44,6 +44,56 @@ public class teleop extends LinearOpMode {
             robot.frontRightDrive.setPower(right);
             robot.backRightDrive.setPower(right);
 
+            if (gamepad1.left_bumper) {
+                //intake
+            }
+            else if (gamepad1.left_trigger < 0.1) {
+                //release
+            }
+            else {
+                //motors off
+            }
+
+            if (gamepad1.dpad_up) {
+                //move lift up
+            }
+            else if (gamepad1.dpad_down) {
+                //move lift down
+            }
+            else{
+                //stop lift
+            }
+
+            if (gamepad1.dpad_left) {
+                //wrist left
+            }
+            else if (gamepad1.dpad_down) {
+                //wrist right
+            }
+            else {
+                //wrist stop
+            }
+
+            if (gamepad1.a) {
+                //grab block
+            }
+            else if (gamepad1.b) {
+                //release block
+            }
+            else {
+                //stop hand
+            }
+
+            if (gamepad1.x) {
+                //intake in
+            }
+            else if (gamepad1.y) {
+                //intake out
+            }
+            else {
+                //stop intake
+            }
+
             // Send telemetry message to signify robot running;
             //telemetry.addData("arm",   "%.2f", armPosition);
             //telemetry.addData("claw",  "%.2f", clawPosition);
