@@ -45,6 +45,7 @@ public class HardwareRIAW {
     public double initAngle = 0;
     public double currAngle = 0;
     public double targetAngle = 0;
+    public double clicksToInch = 0;
     /* Local OpMode members. */
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
@@ -125,29 +126,53 @@ public class HardwareRIAW {
         backRightDrive.setPower(power);
     }
 
-    public void findTargetAngle (double angle){
-        if ((abs(initAngle) + angle) > 180){
-            targetAngle = (initAngle/(-(abs(initAngle))))*((abs(initAngle) + angle)-360);
-        }
-        else{
-            targetAngle = (initAngle + angle);
-        }
-    }
-
     public void gyroTurn(boolean left, double angle, double power) {
         initAngle = angleRead.firstAngle;
         currAngle = imu.getAngularOrientation().firstAngle;
 
-        if (left && ((abs(currAngle - initAngle)) < angle)) {
+        if (left){
+            if (((initAngle) + angle) > 180) {
+                targetAngle = ((initAngle + angle) - 360);
+            }
+            else
+            {
+                targetAngle = initAngle + angle;
+            }
+        }
+        else
+            if (((initAngle - angle) < -180)) {
+                targetAngle = ((initAngle - angle) + 360);
+            }
+            else{
+                targetAngle = initAngle - angle;
+        }
+
+        if (left && (targetAngle > currAngle)) {
             state = State.TURNING;
             turn(power);
-        } else if (!left && ((abs(initAngle - currAngle)) < angle)) {
+        } else if (!left && (targetAngle < currAngle)) {
             state = State.TURNING;
             turn(-power);
         } else {
             state = State.TURNED;
             power = 0;
             turn(power);
+        }
+    }
+
+    public void encMove (boolean forward, double inches, double power)
+    {
+        clicksToInch = 10;   //converts encoder reading to inches
+        double target = inches * clicksToInch;
+
+        if (forward && abs(backLeftDrive.getCurrentPosition()) < target ) {
+            move(power);
+        }
+        else if (!forward && abs(backLeftDrive.getCurrentPosition()) < target) {
+            move(-power);
+        }
+        else{
+            move(0);
         }
     }
 }
