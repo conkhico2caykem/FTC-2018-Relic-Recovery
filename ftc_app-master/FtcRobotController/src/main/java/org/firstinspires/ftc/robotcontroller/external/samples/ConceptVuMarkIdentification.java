@@ -45,6 +45,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.robotcore.internal.vuforia.VuforiaLocalizerImpl;
 
 /**
  * This OpMode illustrates the basics of using the Vuforia engine to determine
@@ -150,6 +151,8 @@ public class ConceptVuMarkIdentification extends LinearOpMode {
                  * we illustrate it nevertheless, for completeness. */
                 OpenGLMatrix pose = ((VuforiaTrackableDefaultListener)relicTemplate.getListener()).getPose();
                 telemetry.addData("Pose", format(pose));
+                parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+                this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
 
                 /* We further illustrate how to decompose the pose into useful rotational and
                  * translational components */
@@ -166,6 +169,7 @@ public class ConceptVuMarkIdentification extends LinearOpMode {
                     double rX = rot.firstAngle;
                     double rY = rot.secondAngle;
                     double rZ = rot.thirdAngle;
+
                 }
             }
             else {

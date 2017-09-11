@@ -38,7 +38,6 @@ public class LinearVisionSample extends LinearVisionOpMode {
          * SECONDARY = Screen-facing, "selfie" camera :D
          **/
         this.setCamera(Cameras.PRIMARY);
-
         /**
          * Set the frame size
          * Larger = sometimes more accurate, but also much slower
@@ -136,7 +135,7 @@ public class LinearVisionSample extends LinearVisionOpMode {
                 //Do all of your custom frame processing here
                 //For this demo, let's just add to a frame counter
                 frameCount++;
-            }
+                }
 
             //Wait for a hardware cycle to allow other processes to run
             waitOneFullHardwareCycle();

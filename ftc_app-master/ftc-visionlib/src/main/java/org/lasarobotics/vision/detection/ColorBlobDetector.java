@@ -212,20 +212,7 @@ public class ColorBlobDetector {
      * @param img   Image to draw on
      * @param color Color to draw the contours in
      */
-    public void drawContours(Mat img, Color color) {
-        Drawing.drawContours(img, contours, color);
-    }
 
-    /**
-     * Draw contours matched by the blob detector
-     *
-     * @param img       Image to draw on
-     * @param color     Color to draw the contours in
-     * @param thickness Contour thickness
-     */
-    public void drawContours(Mat img, Color color, int thickness) {
-        Drawing.drawContours(img, contours, color, thickness);
-    }
 
     /**
      * Get a list of contours after running process()
