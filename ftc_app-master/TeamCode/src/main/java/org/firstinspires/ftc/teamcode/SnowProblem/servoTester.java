@@ -39,20 +39,17 @@ public class servoTester extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             runtime.reset();
-            while(opModeIsActive() && runtime.seconds() < 3)
+            while(opModeIsActive() && runtime.seconds() < 2)
             {
                 robot.gripper.setPosition(gripperPosition);
+                robot.wrist.setPosition(gripperPosition);
                 telemetry.addData("servo value",   "%.2f", gripperPosition);
                 telemetry.addData("runtime", runtime);
                 telemetry.update();
             }
             runtime.reset();
-            if (gripperPosition == 0.4) {
-                gripperPosition = 0.6;
-            }
-            else
-            {
-                gripperPosition = 0.4;
+            if (gripperPosition < 1) {
+                gripperPosition += 0.01;
             }
             // Send telemetry message to signify robot running;
             telemetry.addData("servo value",   "%.2f", gripperPosition);

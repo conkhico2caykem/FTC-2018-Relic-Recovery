@@ -5,6 +5,7 @@ import android.graphics.Path;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -31,9 +32,10 @@ public class HardwareRIAW {
     public DcMotor frontRightDrive = null;
     public DcMotor backRightDrive = null;
     public Servo gripper = null;
-    public Servo leftIntake = null;
-    public Servo rightIntake = null;
+    //public DcMotor leftIntake = null;
+    //public DcMotor rightIntake = null;
     public Servo jewelArm = null;
+    public Servo wrist = null;
     public BNO055IMU imu;
 
     public final static double ARM_HOME = 0.2;
@@ -71,6 +73,7 @@ public class HardwareRIAW {
         backRightDrive = hwMap.get(DcMotor.class, "bright_drive");
         //leftIntake = hwMap.get(DcMotor.class, "left_intake");
         //rightIntake = hwMap.get(DcMotor.class, "right_intake");
+        //rightIntake.setDirection(DcMotor.Direction.REVERSE);
         //lift        = hwMap.get(DcMotor.class, "lift");
         //relicSlides = hwMap.get(DcMotor.class, "lift");
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -94,13 +97,13 @@ public class HardwareRIAW {
         frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //leftIntake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //rightIntake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER)
+        //rightIntake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
         gripper = hwMap.get(Servo.class, "gripper");
         //leftIntake       = hwMap.get(Servo.class, "left_intake");
         //rightIntake      = hwMap.get(Servo.class, "right_intake");
-        //wrist            = hwMap.get(Servo.class, "wrist");
+        wrist            = hwMap.get(Servo.class, "wrist");
         //hand             = hwMap.get(Servo.class, "hand");
         //jewelArm         = hwMap.get(Servo.class, "jewel_arm");
 
@@ -138,9 +141,15 @@ public class HardwareRIAW {
         backRightDrive.setPower(power);
     }
 
-    public void intake(double power){
-
+    /*public void intake(double power){
+        leftIntake.setPower(power);
+        rightIntake.setPower(power);
     }
+
+    public void outtake (double power) {
+        leftIntake.setPower(-power);
+        rightIntake.setPower(-power);
+    }*/
 
 
     public void gyroTurn(boolean left, double angle, double power) {
@@ -192,4 +201,5 @@ public class HardwareRIAW {
             move(0);
         }
     }
+
 }

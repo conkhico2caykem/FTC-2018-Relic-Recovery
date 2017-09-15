@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.SnowProblem;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Tank Drive", group="RIAW")
@@ -44,15 +45,7 @@ public class teleop extends LinearOpMode {
             robot.frontRightDrive.setPower(right);
             robot.backRightDrive.setPower(right);
 
-            if (gamepad1.left_bumper) {
-                //intake
-            }
-            else if (gamepad1.left_trigger < 0.1) {
-                //release
-            }
-            else {
-                //motors off
-            }
+
 
             if (gamepad1.dpad_up) {
                 //move lift up
@@ -65,13 +58,23 @@ public class teleop extends LinearOpMode {
             }
 
             if (gamepad1.dpad_left) {
-                //wrist left
+                robot.wrist.setDirection(Servo.Direction.FORWARD);
+                robot.wrist.setPosition(0.03);
+
+                robot.gripper.setDirection(Servo.Direction.FORWARD);
+                robot.gripper.setPosition(0.03);
+
             }
-            else if (gamepad1.dpad_down) {
-                //wrist right
+            else if (gamepad1.dpad_right) {
+                robot.wrist.setDirection(Servo.Direction.REVERSE);
+                robot.wrist.setPosition(0.03);
+
+                robot.gripper.setDirection(Servo.Direction.FORWARD);
+                robot.gripper.setPosition(0.03);
             }
             else {
-                //wrist stop
+                robot.wrist.setPosition(0.5);
+                robot.gripper.setPosition(0.5);
             }
 
             if (gamepad1.a) {
